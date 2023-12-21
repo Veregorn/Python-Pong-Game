@@ -2,6 +2,8 @@ from turtle import Turtle
 
 # Constants
 MOVE_DISTANCE = 20
+UP = 90
+DOWN = 270
 
 class Paddle:
 
@@ -9,6 +11,9 @@ class Paddle:
         self.segments = []
         self.create_paddle(starting_positions)
         self.head = self.segments[0]
+        self.head.setheading(UP)
+        self.tail = self.segments[len(self.segments - 1)]
+        self.tail.setheading(DOWN)
 
     def create_paddle(self, starting_positions):
         for position in starting_positions:
@@ -21,5 +26,18 @@ class Paddle:
         segment.goto(position)
         self.segments.append(segment)
 
-    def move(self):
-        pass
+    def move_up(self):
+        for seg_num in range(len(self.segments - 1), 0, -1):
+            new_x = self.segments[seg_num - 1].xcor()
+            new_y = self.segments[seg_num - 1].ycor()
+            self.segments[seg_num].goto(new_x, new_y)
+
+        self.head.forward(MOVE_DISTANCE)
+
+    def move_down(self):
+        for seg_num in range(0, len(self.segments - 1), 1):
+            new_x = self.segments[seg_num + 1].xcor()
+            new_y = self.segments[seg_num + 1].ycor()
+            self.segments[seg_num].goto(new_x, new_y)
+
+        self.tail.forward(MOVE_DISTANCE)
