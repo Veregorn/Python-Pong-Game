@@ -20,12 +20,19 @@ screen.tracer(0) # Turn turtle animation off so we can decide when to update the
 paddle1 = Paddle(STARTING_POSITIONS_1)
 paddle2 = Paddle(STARTING_POSITIONS_2)
 
+# Event Listeners
+screen.listen()
+screen.onkey(paddle1.move_up, "w")
+screen.onkey(paddle1.move_down, "s")
+screen.onkey(paddle2.move_up, "Up")
+screen.onkey(paddle2.move_down, "Down")
+
 # Game main loop
 game_is_on = True
 
 while game_is_on:
     screen.update() # So all the segments of paddles move together
-    time.sleep(0.1) # So I can see how paddles and ball move as slow as I want
+    time.sleep(0.03) # So I can see how paddles and ball move as slow as I want
 
 
 

@@ -12,7 +12,7 @@ class Paddle:
         self.create_paddle(starting_positions)
         self.head = self.segments[0]
         self.head.setheading(UP)
-        self.tail = self.segments[len(self.segments - 1)]
+        self.tail = self.segments[len(self.segments) - 1]
         self.tail.setheading(DOWN)
 
     def create_paddle(self, starting_positions):
@@ -27,7 +27,7 @@ class Paddle:
         self.segments.append(segment)
 
     def move_up(self):
-        for seg_num in range(len(self.segments - 1), 0, -1):
+        for seg_num in range(len(self.segments) - 1, 0, -1):
             new_x = self.segments[seg_num - 1].xcor()
             new_y = self.segments[seg_num - 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
@@ -35,7 +35,7 @@ class Paddle:
         self.head.forward(MOVE_DISTANCE)
 
     def move_down(self):
-        for seg_num in range(0, len(self.segments - 1), 1):
+        for seg_num in range(0, len(self.segments) - 1, 1):
             new_x = self.segments[seg_num + 1].xcor()
             new_y = self.segments[seg_num + 1].ycor()
             self.segments[seg_num].goto(new_x, new_y)
