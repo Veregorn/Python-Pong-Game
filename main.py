@@ -6,8 +6,8 @@ import time
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 X_POSITION = (SCREEN_WIDTH / 2) - 40
-STARTING_POSITIONS_1 = [(-X_POSITION, 40), (-X_POSITION, 20), (-X_POSITION, 0), (-X_POSITION, -20), (-X_POSITION, -40)]
-STARTING_POSITIONS_2 = [(X_POSITION-10, 40), (X_POSITION-10, 20), (X_POSITION-10, 0), (X_POSITION-10, -20), (X_POSITION-10, -40)]
+STARTING_POSITION_1 = (-X_POSITION, 0)
+STARTING_POSITION_2 = (X_POSITION-10, 0)
 
 # Screen Setup
 screen = Screen()
@@ -17,8 +17,8 @@ screen.title('Veregorns Pong Game')
 screen.tracer(0) # Turn turtle animation off so we can decide when to update the screen
 
 # Variable Setup
-paddle1 = Paddle(STARTING_POSITIONS_1)
-paddle2 = Paddle(STARTING_POSITIONS_2)
+paddle1 = Paddle(STARTING_POSITION_1)
+paddle2 = Paddle(STARTING_POSITION_2)
 
 # Event Listeners
 screen.listen()
