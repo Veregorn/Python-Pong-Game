@@ -93,8 +93,14 @@ while game_is_on:
 
     ball.move()
 
+    # Detect collisions with paddles
     if (ball.distance(paddle_right) < 50 and ball.get_xcor() > X_POSITION - 30) or (ball.distance(paddle_left) < 50 and ball.get_xcor() < -X_POSITION + 20):
         ball.rebound()
+
+    # Detect when a point is win
+    if ball.get_xcor() > X_POSITION or ball.get_xcor() < -X_POSITION:
+        ball.goto(BALL_STARTING_POSITION)
+        ball.change_dir()
 
 
 

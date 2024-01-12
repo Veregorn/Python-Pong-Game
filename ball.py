@@ -16,7 +16,13 @@ class Ball(Turtle):
         self.penup()
         self.goto(starting_position)
         self.going_top = True
-        self.going_right = True 
+        self.going_right = True
+
+    def change_dir(self):
+        if self.going_right:
+            self.going_right = False
+        else:
+            self.going_right = True
 
     def get_xcor(self):
         return self.xcor()
