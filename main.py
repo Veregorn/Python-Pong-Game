@@ -1,6 +1,7 @@
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import Scoreboard
 import time
 
 # Constants
@@ -22,6 +23,7 @@ screen.tracer(0) # Turn turtle animation off so we can decide when to update the
 paddle_left = Paddle(STARTING_POSITION_1, (SCREEN_HEIGHT / 2) - 55)
 paddle_right = Paddle(STARTING_POSITION_2, (SCREEN_HEIGHT / 2) - 55)
 ball = Ball(BALL_STARTING_POSITION, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+scoreboard = Scoreboard(SCREEN_HEIGHT / 2)
 
 pl_up_pressed = False
 pl_down_pressed = False
@@ -97,11 +99,17 @@ while game_is_on:
     if (ball.distance(paddle_right) < 50 and ball.get_xcor() > X_POSITION - 30) or (ball.distance(paddle_left) < 50 and ball.get_xcor() < -X_POSITION + 20):
         ball.rebound()
 
-    # Detect when a point is win
-    if ball.get_xcor() > X_POSITION or ball.get_xcor() < -X_POSITION:
+    # Detect when a point is won (left)
+    if ball.get_xcor() > X_POSITION:
         ball.goto(BALL_STARTING_POSITION)
         ball.change_dir()
+        scoreboard.give_point('left')
 
+    # Detect when a point is won (right)
+    if ball.get_xcor() < -X_POSITION:
+        ball.goto(BALL_STARTING_POSITION)
+        ball.change_dir()
+        scoreboard.give_point('right')
 
 
 # Windows closes on click
