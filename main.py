@@ -24,6 +24,8 @@ paddle_left = Paddle(STARTING_POSITION_1, (SCREEN_HEIGHT / 2) - 55)
 paddle_right = Paddle(STARTING_POSITION_2, (SCREEN_HEIGHT / 2) - 55)
 ball = Ball(BALL_STARTING_POSITION, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 scoreboard = Scoreboard(SCREEN_HEIGHT / 2)
+initial_time_sleep = 0.04
+bounces_until_speed_increase = 0
 
 pl_up_pressed = False
 pl_down_pressed = False
@@ -76,10 +78,11 @@ screen.onkeyrelease(pr_down_release, "Down")
 
 # Game main loop
 game_is_on = True
+current_time_sleep = initial_time_sleep
 
 while game_is_on:
     screen.update() # So all the segments of paddles move together
-    time.sleep(0.03) # So I can see how paddles and ball move as slow as I want
+    time.sleep(current_time_sleep) # So I can see how paddles and ball move as slow as I want
 
     if pl_up_pressed:
         paddle_left.move_up()
@@ -98,18 +101,25 @@ while game_is_on:
     # Detect collisions with paddles
     if (ball.distance(paddle_right) < 50 and ball.get_xcor() > X_POSITION - 30) or (ball.distance(paddle_left) < 50 and ball.get_xcor() < -X_POSITION + 20):
         ball.rebound()
+        bounces_until_speed_increase += 1
+        if current_time_sleep >= 0.01 and bounces_until_speed_increase == 6: # Too difficult instead
+            bounces_until_speed_increase = 0
+            current_time_sleep -= 0.01
+            time.sleep(current_time_sleep)
 
     # Detect when a point is won (left)
     if ball.get_xcor() > X_POSITION:
         ball.goto(BALL_STARTING_POSITION)
         ball.change_dir()
         scoreboard.give_point('left')
+        current_time_sleep = initial_time_sleep
 
     # Detect when a point is won (right)
     if ball.get_xcor() < -X_POSITION:
         ball.goto(BALL_STARTING_POSITION)
         ball.change_dir()
         scoreboard.give_point('right')
+        current_time_sleep = initial_time_sleep
 
 
 # Windows closes on click
